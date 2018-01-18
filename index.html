@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset=UTF-8>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta content="width=device-width,initial-scale=1" name=viewport>
+      <meta content="Random Quotes Generator, a project for freecodecamp" name="description"/>
+      <meta content="random quotes generator, freecodecamp quotes generator, freecodecamp, quotes" name=keywords>
+      <title>Random Programming Quotes Generator | Andrei Nemeti </title>   
+      <meta content="Andrei Nemeti" name=author>
+      <meta name="referrer" content="origin">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+ 
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <link href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css rel=stylesheet>
+  	  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  	  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+   </head>
+   <body>
+     <div class="main-container">
+     	
+     	<div class="quotesContainer">
+     		<header>
+     		<h1>Random Quotes Generator</h1>
+     	</header>
+     		<div class="imageContainer" id="img">
+     		</div> <!-- end imageContainer -->
+     		<div class="text">
+
+     			<p  id="quoteText"><i class="fa fa-spinner" aria-hidden="true"></i>
+          LOADING QUOTE...</p>
+     			<blockquote id="author"></blockquote>
+	
+     			<section class="socialSharing">
+            <header>
+              <h5>Share this quote!</h5>
+            </header>
+     				<a target="_blank" class="button" id="tweet"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+     				<a target="_blank" class="button" id="googlePlus"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+            <a target="_blank" class="button" id="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+
+     			</section> <!-- end socialSharing -->
+     		</div>
+        <div class="clearfix"></div>
+     		<section class="categories">
+
+     		<a class="button" id="loadQuote" type="button"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+     	</section> <!-- end categories -->
+     </div>  <!-- end QuotesContainer -->
+     <footer>
+     	<br/>
+     		<p>Coded by Andrei Nemeti</p>
+     		<a href="https://www.linkedin.com/in/andrei-marian-nemeti/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+     	</footer>
+     	</div>
+     	
+     <!-- End main container -->
+          <script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="json.json"></script>
+   </body>
+</html>
