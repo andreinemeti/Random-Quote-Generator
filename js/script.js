@@ -23,12 +23,13 @@ currentQuote = document.getElementById("quoteText");
 currentAuthor = document.getElementById("author")
 
   var http = new XMLHttpRequest();
-  http.open("GET", "http://quotes.stormconsultancy.co.uk/random.json");
+  http.open("GET", "https://api.myjson.com/bins/1aytql");
   http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
      	result = JSON.parse(http.responseText);
-     	currentQuote.innerHTML = result.quote;
-     	currentAuthor.innerHTML = "-" + " " + result.author;
+    	var randomQuote = result[Math.floor(Math.random()*result.length)];
+     	currentQuote.innerHTML = randomQuote.quote;
+     	currentAuthor.innerHTML = "-" + " " + randomQuote.author;
     }
   };
 
