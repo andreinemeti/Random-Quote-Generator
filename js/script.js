@@ -8,9 +8,9 @@ function randomImage() {
 	var randomImage;
 	var img = document.getElementById("img");
 	
-	var AnimalImages = ['url("img/coding/1.jpg', 'url("img/coding/2.jpg', 'url("img/coding/3.jpg', 'url("img/coding/4.jpg', 'url("img/coding/5.jpg', 'url("img/coding/6.jpg', 'url("img/coding/7.jpg','url("img/coding/8.jpg','url("img/coding/9.jpg', 'url("img/coding/10.jpg'];
-	for (var x = 0; x< AnimalImages.length; x++) {
-		randomImage = AnimalImages[Math.floor(Math.random() * AnimalImages.length)]
+	var CodingImages = ['url("img/coding/1.jpg', 'url("img/coding/2.jpg', 'url("img/coding/3.jpg', 'url("img/coding/4.jpg', 'url("img/coding/5.jpg', 'url("img/coding/6.jpg', 'url("img/coding/7.jpg','url("img/coding/8.jpg','url("img/coding/9.jpg', 'url("img/coding/10.jpg'];
+	for (var x = 0; x< CodingImages.length; x++) {
+		randomImage = CodingImages[Math.floor(Math.random() * CodingImages.length)]
 	}
 
 		img.style.backgroundImage = randomImage //change the image each time the pages is refreshed
