@@ -1,6 +1,36 @@
+
+
+var quotes = [{
+  "attrib": "Steve Jobs",
+  "quote": "Design is not just what it looks like and feels like. Design is how it works."
+}, {
+  "attrib": "Steve Jobs",
+  "quote": "Innovation distinguishes between a leader and a follower."
+}, {
+  "attrib": "Albert Einstein",
+  "quote": "Reality is merely an illusion, albeit a very persistent one."
+}, {
+  "attrib": "Albert Einstein",
+  "quote": "If you can't explain it simply, you don't understand it well enough."
+}, {
+  "attrib": "Albert Einstein",
+  "quote": "Strive not to be a success, but rather to be of value."
+}, {
+  "attrib": "Steve Jobs",
+  "quote": "Your time is limited, so don’t waste it living someone else’s life."
+}, {
+  "attrib": "Bill Gates",
+  "quote": "Success is a lousy teacher. It seduces smart people into thinking they can't lose."
+}, {
+  "attrib": "Albert Einstein",
+  "quote": "Science without religion is lame, religion without science is blind."
+}, {
+  "attrib": "Henry Ford",
+  "quote": "Whether you think you can or you think you can’t, you’re right."
+}];
+
 randomImage(); //get a random image when the page loads
 loadQuote(); //get a random quote when the page loads
-
 
 var loadQuoteBtn = document.getElementById("loadQuote")
 loadQuoteBtn.addEventListener("click", loadQuote);
@@ -22,24 +52,14 @@ randomImage();
 currentQuote = document.getElementById("quoteText");
 currentAuthor = document.getElementById("author")
 
-  var http = new XMLHttpRequest();
-  http.open("GET", "https://github.com/andreinemeti/Random-Quote-Generator/blob/master/quotes.json");
-  http.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-     	result = JSON.parse(http.responseText);
-    	var randomQuote = result[Math.floor(Math.random()*result.length)];
+
+    	var randomQuote = quotes[Math.floor(Math.random()*quotes.length)];
      	currentQuote.innerHTML = randomQuote.quote;
-     	currentAuthor.innerHTML = "-" + " " + randomQuote.author;
-    }
+     	currentAuthor.innerHTML = "-" + " " + randomQuote.attrib;
+
   };
 
 
-  http.onerror = function() {
-     document.getElementById("quoteText").innerHTML = "Unable to load quote. Please refresh the page";
-};
-
-http.send();
-}
 
 //share 
 
