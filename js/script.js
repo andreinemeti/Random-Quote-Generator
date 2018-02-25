@@ -23,7 +23,7 @@ currentQuote = document.getElementById("quoteText");
 currentAuthor = document.getElementById("author")
 
   var http = new XMLHttpRequest();
-  http.open("GET", "https://api.myjson.com/bins/1aytql");
+  http.open("GET", "https://github.com/andreinemeti/Random-Quote-Generator/blob/master/quotes.json");
   http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
      	result = JSON.parse(http.responseText);
