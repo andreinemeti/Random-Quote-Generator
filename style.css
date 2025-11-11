@@ -1,146 +1,187 @@
 /* Base Reset (trimmed) */
-* { box-sizing: border-box; }
-html, body { height: 100%; }
+* {
+	box-sizing: border-box;
+}
+
+html,
 body {
-  margin: 0;
-  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color: #0f172a;
-  background: #f6f7fb;
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+	color: #0f172a;
+	background: #f6f7fb;
 }
 
 /* ===== Block: quote-app ===== */
 .quote-app {
-  min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 24px;
-  padding: 32px 16px 24px;
+	min-height: 100vh;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	gap: 24px;
+	padding: 32px 16px 24px;
 }
 
 .quote-app__header {
-  max-width: 980px;
-  margin: 0 auto;
+	max-width: 980px;
+	margin: 0 auto;
 }
 
 .quote-app__title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: "Playfair Display", serif;
-  font-weight: 700;
-  font-size: clamp(28px, 4vw, 40px);
-  margin: 0;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	font-family: "Playfair Display", serif;
+	font-weight: 700;
+	font-size: clamp(28px, 4vw, 40px);
+	margin: 0;
 }
 
 .quote-app__title-accent {
-  width: 44px; height: 6px; border-radius: 6px;
-  background: #2e7d32;
-  display: inline-block;
+	width: 44px;
+	height: 6px;
+	border-radius: 6px;
+	background: #2e7d32;
+	display: inline-block;
 }
 
 .quote-app__subtitle {
-  margin-top: 6px;
-  color: #6b7280;
+	margin-top: 6px;
+	color: #6b7280;
 }
 
 /* ===== Block: quote-card ===== */
 .quote-card {
-  max-width: 1400px;
-  margin: 0 auto;
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.06);
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr 1.3fr;
+	max-width: 1400px;
+	margin: 0 auto;
+	background: #fff;
+	border-radius: 18px;
+	box-shadow: 0 10px 30px rgba(2, 6, 23, 0.06);
+	overflow: hidden;
+	display: grid;
+	grid-template-columns: 1fr 1.3fr;
 }
 
 .quote-card__image {
-  min-height: 320px;
-  background-size: cover;
-  background-position: center;
+	min-height: 320px;
+	background-size: cover;
+	background-position: center;
 }
 
 .quote-card__content {
-  padding: clamp(18px, 3vw, 32px);
-  display: grid;
-  gap: 18px;
-  align-content: center;
+	padding: clamp(18px, 3vw, 32px);
+	display: grid;
+	gap: 18px;
+	align-content: center;
 }
 
 .quote-card__text {
-  font-size: clamp(20px, 2.5vw, 28px);
-  line-height: 1.45;
-  margin: 0;
-  position: relative;
-  font-weight: 500;
+	font-size: clamp(20px, 2.5vw, 28px);
+	line-height: 1.45;
+	margin: 0;
+	position: relative;
+	font-weight: 500;
 }
 
 .quote-card__quote-mark {
-  color: #2e7d32;
-  font-family: "Playfair Display", serif;
-  font-weight: 700;
+	color: #2e7d32;
+	font-family: "Playfair Display", serif;
+	font-weight: 700;
 }
 
 .quote-card__author {
-  color: #6b7280;
-  font-weight: 500;
+	color: #6b7280;
+	font-weight: 500;
 }
 
 .quote-card__actions {
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  flex-wrap:wrap;
-  gap: 12px;
+	margin-top: 10px;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 12px;
 }
 
-.share { display: inline-flex; gap: 8px; }
+.share {
+	display: inline-flex;
+	gap: 8px;
+}
 
 /* ===== Elements: Buttons ===== */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  background: #eef2f7;
-  color: #0f172a;
-  cursor: pointer;
-  transition: transform .06s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 14px;
+	border: 1px solid transparent;
+	border-radius: 10px;
+	background: #eef2f7;
+	color: #0f172a;
+	cursor: pointer;
+	transition: transform .06s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
 }
-.btn:active { transform: translateY(1px); }
+
+.btn:active {
+	transform: translateY(1px);
+}
 
 .btn--primary {
-  background: #2e7d32;
-  color: #fff;
-  box-shadow: 0 6px 18px rgba(46, 125, 50, .25);
+	background: #2e7d32;
+	color: #fff;
+	box-shadow: 0 6px 18px rgba(46, 125, 50, .25);
 }
-.btn--primary:hover { filter: brightness(1.05); }
+
+.btn--primary:hover {
+	filter: brightness(1.05);
+}
 
 .btn--ghost {
-  background: #f3f4f6;
-  border-color: #e5e7eb;
+	background: #f3f4f6;
+	border-color: #e5e7eb;
 }
-.btn--ghost:hover { background: #e9eef7; }
+
+.btn--ghost:hover {
+	background: #e9eef7;
+}
 
 /* ===== Footer ===== */
 .quote-app__footer {
-  text-align: center;
-  color: #6b7280;
+	text-align: center;
+	color: #6b7280;
 }
-.quote-app__footer a { color: #2e7d32; text-decoration: none; }
-.quote-app__footer a:hover { text-decoration: underline; }
+
+.quote-app__footer a {
+	color: #2e7d32;
+	text-decoration: none;
+}
+
+.quote-app__footer a:hover {
+	text-decoration: underline;
+}
 
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
-  .quote-card { grid-template-columns: 1fr; max-width:100%; }
-  .quote-card__image { min-height: 220px; }
+	.quote-card {
+		grid-template-columns: 1fr;
+		max-width: 100%;
+	}
+
+	.quote-card__image {
+		min-height: 220px;
+	}
 }
 
 /* ===== A11y ===== */
 .sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
 }

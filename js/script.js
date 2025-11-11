@@ -1,6 +1,6 @@
 const { createApp } = Vue;
 
-const FALLBACK_QUOTES  = [
+const FALLBACK_QUOTES = [
   { attrib: "Steve Jobs", quote: "Design is not just what it looks like and feels like. Design is how it works." },
   { attrib: "Steve Jobs", quote: "Innovation distinguishes between a leader and a follower." },
   { attrib: "Albert Einstein", quote: "Reality is merely an illusion, albeit a very persistent one." },
@@ -25,7 +25,7 @@ createApp({
     return {
       quotes: [],
       images: IMAGES,
-      current: { quote: "Loading…", attrib: "…" , permalink: "" },
+      current: { quote: "Loading…", attrib: "…", permalink: "" },
       currentImage: IMAGES[0]
     };
   },
@@ -73,7 +73,7 @@ createApp({
       const text = this.asText();
       const url = this.current.permalink || window.location.href;
       if (navigator.share) {
-        navigator.share({ title: "Inspiring Quote", text, url }).catch(() => {});
+        navigator.share({ title: "Inspiring Quote", text, url }).catch(() => { });
       } else {
         this.copyQuote();
         alert("Quote copied to clipboard!");
