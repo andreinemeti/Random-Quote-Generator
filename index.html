@@ -1,68 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset=UTF-8>
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta content="width=device-width,initial-scale=1" name=viewport>
-      <meta content="Random Quotes Generator, a project for freecodecamp" name="description"/>
-      <meta content="random quotes generator, freecodecamp quotes generator, freecodecamp, quotes" name=keywords>
-      <title>Random Quotes Generator | Andrei Nemeti </title>   
-      <meta content="Andrei Nemeti" name=author>
-      <meta name="referrer" content="origin">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
- 
-      <link rel="stylesheet" type="text/css" href="style.css">
-      <link href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css rel=stylesheet>
-  	  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
-  	  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inspiring Quotes | Andrei Nemeti</title>
+  <meta name="description" content="Random Quotes Generator by Andrei Nemeti" />
+  <meta name="author" content="Andrei Nemeti" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Premium-feel font pairing -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <!-- Icons -->
+  <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="app" class="quote-app">
+    <header class="quote-app__header">
+      <h1 class="quote-app__title">
+        <span class="quote-app__title-accent"></span>
+        Inspiring Quotes
+      </h1>
+      <p class="quote-app__subtitle">Discover a new perspective daily</p>
+    </header>
 
-   </head>
-   <body>
-     <div class="main-container">
-     	
-     	<div class="quotesContainer">
-     		<header>
-     		<h1>Random Quotes Generator</h1>
-     	</header>
-     		<div class="imageContainer" id="img">
-     		</div> <!-- end imageContainer -->
-     		<div class="text">
+    <section class="quote-card">
+      <div class="quote-card__image" :style="{ backgroundImage: 'url(' + currentImage + ')' }" aria-hidden="true"></div>
 
-     			<p  id="quoteText"><i class="fa fa-spinner" aria-hidden="true"></i>
-          LOADING QUOTE...</p>
-     			<blockquote id="author"></blockquote>
-	
-     			<section class="socialSharing">
-            <header>
-              <h5>Share this quote!</h5>
-            </header>
-     				<a target="_blank" class="button" id="tweet"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-     				<a target="_blank" class="button" id="googlePlus"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-            <a target="_blank" class="button" id="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+      <div class="quote-card__content">
+        <blockquote class="quote-card__text">
+          <span class="quote-card__quote-mark">“</span>
+          <span v-text="current.quote"></span>
+          <span class="quote-card__quote-mark">”</span>
+        </blockquote>
+        <div class="quote-card__author">— <span v-text="current.attrib"></span></div>
 
-     			</section> <!-- end socialSharing -->
-     		</div>
-        <div class="clearfix"></div>
-     		<section class="categories">
+        <div class="quote-card__actions">
+          <button class="btn btn--primary" @click="nextQuote" aria-label="New Quote">
+            <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+            <span>New Quote</span>
+          </button>
 
-     		<a class="button" id="loadQuote" type="button"><i class="fa fa-refresh" aria-hidden="true"></i></a>
-     	</section> <!-- end categories -->
-     </div>  <!-- end QuotesContainer -->
-     <footer>
-     	<br/>
-     		<p>Coded by Andrei Nemeti</p>
-     		<a href="https://www.linkedin.com/in/andrei-marian-nemeti/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-     	</footer>
-     	</div>
-     	
-     <!-- End main container -->
-          <script type="text/javascript" src="js/script.js"></script>
-          <script type="text/javascript" src="quotes.json"></script>
+          <div class="share">
+            <button class="btn btn--ghost" @click="share('twitter')" aria-label="Share on X">
+              <i class="fa-brands fa-x-twitter" aria-hidden="true"></i><span class="sr-only">Share on X</span>
+            </button>
+            <button class="btn btn--ghost" @click="share('facebook')" aria-label="Share on Facebook">
+              <i class="fa-brands fa-facebook-f" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span>
+            </button>
+            <button class="btn btn--ghost" @click="share('linkedin')" aria-label="Share on LinkedIn">
+              <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i><span class="sr-only">Share on LinkedIn</span>
+            </button>
+            <button class="btn btn--ghost" @click="nativeShare" aria-label="Share">
+              <i class="fa-solid fa-share-nodes" aria-hidden="true"></i><span class="sr-only">Share</span>
+            </button>
+            <button class="btn btn--ghost" @click="copyQuote" aria-label="Copy quote">
+              <i class="fa-regular fa-copy" aria-hidden="true"></i><span class="sr-only">Copy</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-   </body>
+    <footer class="quote-app__footer">
+      <p>Coded by Andrei Nemeti</p>
+      <a href="https://www.linkedin.com/in/andrei-marian-nemeti/" target="_blank" rel="noopener">LinkedIn</a>
+    </footer>
+  </main>
+
+  <!-- Vue 3 (no build step needed) -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="js/script.js"></script>
+</body>
 </html>
