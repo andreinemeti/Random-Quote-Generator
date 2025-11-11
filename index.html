@@ -30,43 +30,63 @@
       <p class="quote-app__subtitle">Discover a new perspective daily</p>
     </header>
 
-    <section class="quote-card">
-      <div class="quote-card__image" :style="{ backgroundImage: 'url(' + currentImage + ')' }" aria-hidden="true"></div>
+ <section class="quote-card">
+  <!-- Image pane -->
+  <div class="quote-card__image">
+    <!-- Skeleton shimmer while loading -->
+    <div class="quote-card__image-skeleton" v-if="isLoading" aria-hidden="true"></div>
 
-      <div class="quote-card__content">
-        <blockquote class="quote-card__text">
-          <span class="quote-card__quote-mark">“</span>
-          <span v-text="current.quote"></span>
-          <span class="quote-card__quote-mark">”</span>
-        </blockquote>
-        <div class="quote-card__author">— <span v-text="current.attrib"></span></div>
+    <!-- Real image (fades in) -->
+    <transition name="fade">
+      <div v-show="!isLoading"
+           class="quote-card__image-bg"
+           :style="{ backgroundImage: 'url(' + currentImage + ')' }"
+           aria-hidden="true"></div>
+    </transition>
+  </div>
 
-        <div class="quote-card__actions">
-          <button class="btn btn--primary" @click="nextQuote" aria-label="New Quote">
-            <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
-            <span>New Quote</span>
-          </button>
+  <!-- Text pane -->
+  <div class="quote-card__content">
+    <transition name="slide-up" mode="out-in">
+      <blockquote class="quote-card__text" :key="current.quote">
+        <span class="quote-card__quote-mark">“</span>
+        <span v-text="current.quote"></span>
+        <span class="quote-card__quote-mark">”</span>
+      </blockquote>
+    </transition>
 
-          <div class="share">
-            <button class="btn btn--ghost" @click="share('twitter')" aria-label="Share on X">
-              <i class="fa-brands fa-x-twitter" aria-hidden="true"></i><span class="sr-only">Share on X</span>
-            </button>
-            <button class="btn btn--ghost" @click="share('facebook')" aria-label="Share on Facebook">
-              <i class="fa-brands fa-facebook-f" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span>
-            </button>
-            <button class="btn btn--ghost" @click="share('linkedin')" aria-label="Share on LinkedIn">
-              <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i><span class="sr-only">Share on LinkedIn</span>
-            </button>
-            <button class="btn btn--ghost" @click="nativeShare" aria-label="Share">
-              <i class="fa-solid fa-share-nodes" aria-hidden="true"></i><span class="sr-only">Share</span>
-            </button>
-            <button class="btn btn--ghost" @click="copyQuote" aria-label="Copy quote">
-              <i class="fa-regular fa-copy" aria-hidden="true"></i><span class="sr-only">Copy</span>
-            </button>
-          </div>
-        </div>
+    <transition name="fade" mode="out-in">
+      <div class="quote-card__author" :key="current.attrib">— <span v-text="current.attrib"></span></div>
+    </transition>
+
+    <div class="quote-card__actions">
+      <button class="btn btn--primary" @click="nextQuote" :disabled="isLoading" aria-label="New Quote">
+        <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+        <span v-if="!isLoading">New Quote</span>
+        <span v-else>Loading…</span>
+      </button>
+
+      <div class="share">
+        <button class="btn btn--ghost" @click="share('twitter')" :disabled="isLoading" aria-label="Share on X">
+          <i class="fa-brands fa-x-twitter" aria-hidden="true"></i><span class="sr-only">Share on X</span>
+        </button>
+        <button class="btn btn--ghost" @click="share('facebook')" :disabled="isLoading" aria-label="Share on Facebook">
+          <i class="fa-brands fa-facebook-f" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span>
+        </button>
+        <button class="btn btn--ghost" @click="share('linkedin')" :disabled="isLoading" aria-label="Share on LinkedIn">
+          <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i><span class="sr-only">Share on LinkedIn</span>
+        </button>
+        <button class="btn btn--ghost" @click="nativeShare" :disabled="isLoading" aria-label="Share">
+          <i class="fa-solid fa-share-nodes" aria-hidden="true"></i><span class="sr-only">Share</span>
+        </button>
+        <button class="btn btn--ghost" @click="copyQuote" :disabled="isLoading" aria-label="Copy quote">
+          <i class="fa-regular fa-copy" aria-hidden="true"></i><span class="sr-only">Copy</span>
+        </button>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
 
     <footer class="quote-app__footer">
       <p>Coded by Andrei Nemeti</p>

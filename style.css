@@ -104,6 +104,53 @@ body {
 	gap: 12px;
 }
 
+
+/* ----- Skeleton + image layers ----- */
+.quote-card__image {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+}
+
+.quote-card__image-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  will-change: opacity, transform;
+}
+
+.quote-card__image-skeleton {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, #e7ebf3 25%, #f3f6fb 50%, #e7ebf3 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite linear;
+  border-radius: 0; /* matches card edge */
+}
+
+/* ----- Transitions ----- */
+.fade-enter-active, .fade-leave-active { transition: opacity .25s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+
+.slide-up-enter-active, .slide-up-leave-active { transition: all .22s ease; }
+.slide-up-enter-from, .slide-up-leave-to { opacity: 0; transform: translateY(6px); }
+
+/* Button disabled state */
+.btn:disabled { opacity: .6; cursor: not-allowed; box-shadow: none; }
+
+/* Shimmer */
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .fade-enter-active, .fade-leave-active,
+  .slide-up-enter-active, .slide-up-leave-active {
+    transition: none !important;
+  }
+  .quote-card__image-skeleton { animation: none; }
+}
+
 .share {
 	display: inline-flex;
 	gap: 8px;

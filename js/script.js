@@ -12,12 +12,9 @@ const FALLBACK_QUOTES = [
   { attrib: "Henry Ford", quote: "Whether you think you can or you think you can’t, you’re right." }
 ];
 
-
 const IMAGES = [
-  "img/coding/1.jpg", "img/coding/2.jpg", "img/coding/3.jpg",
-  "img/coding/4.jpg", "img/coding/5.jpg", "img/coding/6.jpg",
-  "img/coding/7.jpg", "img/coding/8.jpg", "img/coding/9.jpg",
-  "img/coding/10.jpg"
+  "img/coding/1.jpg","img/coding/2.jpg","img/coding/3.jpg","img/coding/4.jpg","img/coding/5.jpg",
+  "img/coding/6.jpg","img/coding/7.jpg","img/coding/8.jpg","img/coding/9.jpg","img/coding/10.jpg"
 ];
 
 createApp({
@@ -26,13 +23,15 @@ createApp({
       quotes: [],
       images: IMAGES,
       current: { quote: "Loading…", attrib: "…", permalink: "" },
-      currentImage: IMAGES[0]
+      currentImage: IMAGES[0],
+      isLoading: true
     };
   },
 
   async mounted() {
     await this.loadQuotes();
-    this.nextQuote();
+    // First render: preload image to avoid flash
+    await this.swapTo(this.rand(this.images), this.rand(this.quotes.length ? this.quotes : FALLBACK_QUOTES));
   },
 
   methods: {
@@ -40,29 +39,44 @@ createApp({
 
     async loadQuotes() {
       try {
-        // Use no-store so GitHub Pages/local dev won’t aggressively cache JSON changes
         const res = await fetch("js/quotes.json", { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
-
-        // Normalize to the app’s shape
-        this.quotes = (Array.isArray(data) ? data : []).map(q => ({
-          attrib: q.author || "Unknown",
-          quote: q.quote || "",
-          permalink: q.permalink || ""
-        })).filter(q => q.quote.trim().length > 0);
-
-        if (this.quotes.length === 0) this.quotes = FALLBACK_QUOTES;
+        this.quotes = (Array.isArray(data) ? data : [])
+          .map(q => ({ attrib: q.author || "Unknown", quote: q.quote || "", permalink: q.permalink || "" }))
+          .filter(q => q.quote.trim().length > 0);
+        if (!this.quotes.length) this.quotes = FALLBACK_QUOTES;
       } catch (err) {
         console.warn("Failed to load quotes.json:", err);
         this.quotes = FALLBACK_QUOTES;
       }
     },
 
-    nextQuote() {
+    preload(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = resolve;
+        img.onerror = resolve; // resolve anyway so UI doesn’t hang on broken images
+        img.src = src;
+      });
+    },
+
+    async swapTo(nextImage, nextQuote) {
+      this.isLoading = true;                               // show skeletons / disable buttons
+      await this.preload(nextImage);                       // wait for image bytes
+      this.current = nextQuote;                            // triggers text transitions
+      // Let text transition first a tick, then fade image in; small delay removes flicker
+      requestAnimationFrame(() => {
+        this.currentImage = nextImage;
+        this.isLoading = false;
+      });
+    },
+
+    async nextQuote() {
       const pool = this.quotes.length ? this.quotes : FALLBACK_QUOTES;
-      this.current = this.rand(pool);
-      this.currentImage = this.rand(this.images);
+      const nextQ = this.rand(pool);
+      const nextImg = this.rand(this.images);
+      await this.swapTo(nextImg, nextQ);
     },
 
     asText() {
@@ -73,7 +87,7 @@ createApp({
       const text = this.asText();
       const url = this.current.permalink || window.location.href;
       if (navigator.share) {
-        navigator.share({ title: "Inspiring Quote", text, url }).catch(() => { });
+        navigator.share({ title: "Inspiring Quote", text, url }).catch(() => {});
       } else {
         this.copyQuote();
         alert("Quote copied to clipboard!");
@@ -89,17 +103,10 @@ createApp({
       const text = encodeURIComponent(this.asText());
       const url = encodeURIComponent(this.current.permalink || window.location.href);
       let shareUrl = "";
-
       switch (network) {
-        case "twitter": // X
-          shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-          break;
-        case "facebook":
-          shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
-          break;
-        case "linkedin":
-          shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-          break;
+        case "twitter": shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`; break;
+        case "facebook": shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`; break;
+        case "linkedin": shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`; break;
       }
       if (shareUrl) window.open(shareUrl, "_blank", "noopener,noreferrer");
     }
